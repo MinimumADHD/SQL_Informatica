@@ -1,3 +1,4 @@
+-- TODO: REMOVE SLURS AND BAD WORDING (PRIORITY: LOW)
 DROP DATABASE IF EXISTS INSTRUMENTS_SHOP;
 CREATE DATABASE INSTRUMENTS_SHOP;
 USE INSTRUMENTS_SHOP;
@@ -47,6 +48,7 @@ CREATE TABLE ORDER_ (
  */
 -- better way, sql will understand anyhow... best practice with autoincrement
 -- nvm i just learnt this one is called non-declarative or sum shit while the other one is declarative, and theoretically the other one takes less time to fiill up
+-- if i dont want shit to fill up in the first one, i just dont write it and sql will automatically understand it as NULL (unless it's an auto-increment number), in the other one (as you can see), i MUST declare shit with "NULL" oitherwise fucking sql is going to complain for it
 INSERT INTO CUSTOMER_
 VALUES (
         NULL,
