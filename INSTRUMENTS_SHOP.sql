@@ -53,6 +53,7 @@ CREATE TABLE ORDER_ (
  );
  */
 -- better way, sql will understand anyhow... best practice with autoincrement
+-- nvm i just learnt this one is called non-declarative or sum shit while the other one is declarative, and theoretically the other one takes less time to fiill up
 INSERT INTO CUSTOMER_
 VALUES (
         NULL,
