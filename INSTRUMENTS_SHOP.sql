@@ -43,13 +43,6 @@ CREATE TABLE ORDER_ (
  "PATALFORN",
  "pwk10293",
  "2023-12-22"
- ),
- (
- "Jiajia",
- "Hu",
- "Sora_SkyLight",
- "swkjej2444_",
- "1986-09-22"
  );
  */
 -- better way, sql will understand anyhow... best practice with autoincrement
