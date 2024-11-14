@@ -1,4 +1,6 @@
 -- TODO: REMOVE SLURS AND BAD WORDING (PRIORITY: LOW)
+-- to run that shit with XAMPP (unsure why we're still using that shitass thing with all due respect to the Apache devs who puts effort and even made it open source) use the shell command mysql -u root (at least on Windows, on Linux should be easier)
+-- use linux mint or arch btw
 DROP DATABASE IF EXISTS INSTRUMENTS_SHOP;
 CREATE DATABASE INSTRUMENTS_SHOP;
 USE INSTRUMENTS_SHOP;
