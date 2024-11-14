@@ -69,3 +69,7 @@ VALUES (
 -- printing all the contents of the table CUSTOMER_
 SELECT *
 FROM CUSTOMER_;
+-- printing all contents of the table customer BUT with conditions
+SELECT *
+FROM CUSTOMER_
+WHERE _CUSTOMER_ID > 1;
