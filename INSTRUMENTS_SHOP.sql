@@ -54,11 +54,19 @@ CREATE TABLE ORDER_ (
 INSERT INTO CUSTOMER_
 VALUES (
         NULL,
-        "Giorgio",
-        "Astarita",
+        "Keith",
+        "Salamanca",
         "PATALFORN",
         "eoekkwj13",
         "2002-10-12"
+    ),
+    (
+        NULL,
+        "Rodha",
+        "Viking",
+        "Ole_Viking",
+        "wqkwo24_w,e",
+        NULL
     ),
     (
         NULL,
@@ -68,6 +76,7 @@ VALUES (
         "kskfeok334",
         "1989-01-04"
     );
+-- these searches are called queries
 -- printing all the contents of the table CUSTOMER_
 SELECT *
 FROM CUSTOMER_;
@@ -75,3 +84,23 @@ FROM CUSTOMER_;
 SELECT *
 FROM CUSTOMER_
 WHERE _CUSTOMER_ID > 1;
+-- if i wanna check for values with NULL (empty) use IS NULL
+-- doing = null is notw valid and WON'T WORK!
+SELECT *
+FROM CUSTOMER_
+WHERE _REGISTRATION_DATE IS NULL;
+-- updating data on a table
+UPDATE CUSTOMER_
+SET _PASS = "RESET"
+WHERE _CUSTOMER_ID = 3;
+-- if I wanna change multiple columns, i will just add a , after the first set
+UPDATE CUSTOMER_
+SET _PASS = "RESET",
+    _REGISTRATION_DATE = "0000-00-00"
+WHERE _CUSTOMER_ID = 3;
+-- if you just wanna edit a WHOLE column, just dont insert the where clause
+-- DONT EVER USE "DELETE FROM TABLENAMEHERE" AS ITS GOING TO REMOVE ALL THE ROWS FROM YOUR TABLE.
+DELETE FROM CUSTOMER_
+WHERE _REGISTRATION_DATE IS NULL;
+SELECT *
+FROM CUSTOMER_;
