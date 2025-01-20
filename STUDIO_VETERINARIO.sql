@@ -2,58 +2,54 @@ DROP DATABASE IF EXISTS STUDIO_VETERINARIO;
 CREATE DATABASE STUDIO_VETERINARIO;
 USE STUDIO_VETERINARIO;
 
-CREATE TABLE PET_
+CREATE TABLE owners
 (
-    PET_ID INT AUTO_INCREMENT PRIMARY KEY,
-    PET_NAME VARCHAR(25),
-    PET_RACE VARCHAR(15) NOT NULL,
-    PET_SPECIES VARCHAR(15) NOT NULL,
-    PET_AGE INT
+    tax_code VARCHAR(12) PRIMARY KEY NOT NULL,
+    first_name VARCHAR(15) NOT NULL,
+    last_name VARCHAR(15) NOT NULL,
+    token VARCHAR(20),
+    mail_address VARCHAR(30) NOT NULL,
+    login_password VARCHAR(12),
+    phone_number VARCHAR(13)
 );
 
-CREATE TABLE OWNER_
+CREATE TABLE animals
 (
-    OWNER_ID INT AUTO_INCREMENT PRIMARY KEY,
-    PET_ID INT,
-    FOREIGN KEY (PET_ID) REFERENCES PET_(PET_ID),
-    OWNER_NAME VARCHAR(30),
-    OWNER_LASTNAME VARCHAR(30),
-    OWNER_PHONE_NUMBER VARCHAR(12),
-    OWNER_EMAIL VARCHAR(40),
-    OWNER_EXTERNAL_TOKEN VARCHAR(50),
-    OWNER_PASSWORD VARCHAR(12),
-    OWNER_FC VARCHAR(16)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    pet_name VARCHAR(30) NOT NULL,
+    pet_status VARCHAR(8) NOT NULL, /* "salutare" "malato" */
+    race VARCHAR(20) NOT NULL,
+    specie VARCHAR(20) NOT NULL,
+    age INT NOT NULL,
+    owner_tax_code VARCHAR(12) NOT NULL,
+    FOREIGN KEY (owner_tax_code) REFERENCES owners(tax_code)
 );
 
-CREATE TABLE VISIT_
-(
-    VISIT_ID INT AUTO_INCREMENT PRIMARY KEY,
-    PET_ID INT,
-    FOREIGN KEY (PET_ID) REFERENCES PET_(PET_ID),
-    VISIT_DATE DATE,
-    VISIT_DIAGNOSIS VARCHAR(32),
-    VISIT_PROBLEM VARCHAR(32),
-    VISIT_PROGNOSIS VARCHAR(32)
-);
+INSERT INTO owners (tax_code, first_name, last_name, token, mail_address, login_password, phone_number)
+VALUES
+('POA45QVMKH34', 'Jovanna', 'Chiarelli', NULL, 'jo.chiarel@gmail.com', 'Gattto2025', '+393333333333'),
+('QPW12RTYMH12', 'Mattia', 'Pasquale', 'WEEOEKR343PQOEAK', 'mattia.pasq@govit.com', 'jwkW133l_m', '+393839636353');
 
-CREATE TABLE VET_
-(
-    VET_ID INT AUTO_INCREMENT PRIMARY KEY,
-    VET_NAME VARCHAR(30),
-    VET_LASTNAME VARCHAR(30),
-    VET_EXTERNAL_TOKEN VARCHAR(50),
-    VET_EMAIL VARCHAR(40),
-    VET_SPEC VARCHAR(32) NOT NULL,
-    VISIT_ID INT,
-    FOREIGN KEY (VISIT_ID) REFERENCES VISIT_(VISIT_ID)
-);
-
-CREATE TABLE TREATMENT_
-(
-    TREATMENT_ID INT AUTO_INCREMENT PRIMARY KEY,
-    TREATMENT_DURATION_DAYS INT,
-    TREATMENT_DESCRIPTION VARCHAR(64),
-    TREATMENT_PRICE DECIMAL(3,2)
-);
+INSERT INTO animals (pet_name, pet_status, race, specie, age, owner_tax_code)
+VALUES
+('Malta', 'malato', 'golden retriever', 'cane', 6, 'POA45QVMKH34'),
+('Koni', 'salutare', 'maine coon', 'gatto', 3, 'QPW12RTYMH12'),
+('Mako', 'salutare', 'doberman', 'cane', 2, 'POA45QVMKH34');
 
 SHOW TABLES;
+
+SELECT * FROM animals;
+SELECT * FROM owners;
+
+SELECT owners.first_name "Nome Proprietario", owners.last_name "Cognome Proprietario", animals.pet_name "Nome Animale", animals.pet_status "Stato Medico", animals.id "ID Animale"
+FROM animals, owners
+WHERE animals.owner_tax_code LIKE '%POA45QVMKH34%' AND owners.tax_code LIKE '%POA45QVMKH34%';
+
+-- ho scoperto che in SQL non posso semplicemente fare != NULL, ma devo per forza fare IS NOT NULL
+SELECT owners.first_name "Nome", owners.token "Token Google"
+FROM owners
+WHERE owners.token IS NOT NULL;
+
+SELECT *
+FROM  owners
+WHERE owners.mail_address LIKE "%@govit.com";
