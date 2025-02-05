@@ -5,16 +5,17 @@ USE CONAD;
 CREATE TABLE customers (
     customer_id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL
+    last_name VARCHAR(50) NOT NULL,
+    referral_id INT
 );
 
-INSERT INTO customers (first_name, last_name)
-VALUES ("Mario", "Fratelli"),
-    ("Giovanni", "Garelli"),
-    ("Davide", "Vessetti"),
-    ("Fernando", "Procopio"),
-    ("Federico", "LaPigna"),
-    ("Giorgio", "Garelli");
+INSERT INTO customers (first_name, last_name, referral_id)
+VALUES ("Mario", "Fratelli", NULL),
+    ("Giovanni", "Garelli", 4),
+    ("Davide", "Vessetti", 3),
+    ("Fernando", "Procopio", 3),
+    ("Federico", "LaPigna", 2),
+    ("Giorgio", "Garelli", 1);
 
 SELECT *
 FROM customers;
@@ -135,3 +136,18 @@ SELECT *
 FROM customers
 ORDER BY first_name ASC
 LIMIT 3, 3;
+
+-- UNION combina i risultati di due SELECT
+-- IL NUMERO DI COLONNE IN UN UNION DEVE ESSERE UGUALE
+-- UNION ALL accetta anche i duplicati
+SELECT transactions.amount, transactions.transaction_id
+FROM transactions
+UNION ALL
+SELECT customers.first_name, customers.last_name
+FROM customers;
+
+-- LE SELF JOIN aiutano a unire copie di una tabella insieme
+SELECT CONCAT(table_a.first_name, " ", table_a.last_name) AS "Referred By", table_a.customer_id, table_b.referral_id
+FROM customers AS table_a
+INNER JOIN customers AS table_b
+ON table_a.referral_id = table_b.customer_id;
