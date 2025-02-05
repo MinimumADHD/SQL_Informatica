@@ -147,7 +147,17 @@ SELECT customers.first_name, customers.last_name
 FROM customers;
 
 -- LE SELF JOIN aiutano a unire copie di una tabella insieme
+-- Utile per gerarchie
 SELECT CONCAT(table_a.first_name, " ", table_a.last_name) AS "Referred By", table_a.customer_id, table_b.referral_id
 FROM customers AS table_a
 INNER JOIN customers AS table_b
-ON table_a.referral_id = table_b.customer_id;
+ON table_b.referral_id = table_a.customer_id;
+
+-- VIEWS tabelle virtuali
+-- Le view si aggiornano in tempo reale in base a i cambiamenti della tabella originale
+-- Le view sono delle tabelle NON modificabili, se non modificando le tabelle originali da cui prendono i dati
+CREATE VIEW customer_entries AS
+SELECT first_name, last_name
+FROM customers;
+
+SELECT * FROM customer_entries;
