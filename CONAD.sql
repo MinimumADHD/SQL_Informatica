@@ -179,3 +179,18 @@ WHERE customers.last_name = "Garelli";
 SELECT transactions.transaction_id, transactions.amount,
     (SELECT AVG(amount) FROM transactions) AS "avg_amount"
 FROM transactions;
+
+-- Un modo utile per usare le subquery è ricevere tutti i clienti che hanno fatto ALMENO un'acquisto
+SELECT first_name, last_name
+FROM customers
+WHERE customer_id IN
+    (SELECT DISTINCT customer_id
+    FROM transactions
+    WHERE customer_id IS NOT NULL);
+
+SELECT first_name, last_name
+FROM customers
+WHERE customer_id NOT IN
+    (SELECT DISTINCT customer_id
+    FROM transactions
+    WHERE customer_id IS NOT NULL);
