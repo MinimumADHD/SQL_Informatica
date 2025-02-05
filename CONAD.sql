@@ -160,4 +160,22 @@ CREATE VIEW customer_entries AS
 SELECT first_name, last_name
 FROM customers;
 
-SELECT * FROM customer_entries;
+SELECT *
+FROM customer_entries;
+
+-- Index o Indici
+-- Operare con ricerche in maniera veloce e non dispendiosa
+-- Aggiornare invece prenderà più tempo
+CREATE INDEX idx_last_name
+ON customers (last_name);
+
+SHOW INDEXES FROM customers;
+
+SELECT *
+FROM customers
+WHERE customers.last_name = "Garelli";
+
+-- Subqueries sono delle query all'interno di un'altra query
+SELECT transactions.transaction_id, transactions.amount,
+    (SELECT AVG(amount) FROM transactions) AS "avg_amount"
+FROM transactions;
