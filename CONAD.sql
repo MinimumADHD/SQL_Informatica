@@ -232,3 +232,5 @@ END//
 DELIMITER ;
 
 CALL get_customers_with_id(3);
+
+-- TRIGGER servono a controllare quando succedono degli eventi
