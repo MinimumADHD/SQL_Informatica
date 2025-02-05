@@ -44,7 +44,7 @@ CREATE TABLE transactions (
     product_id INT,
     CONSTRAINT chk_amount CHECK (amount >= 1),
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE SET NULL
 );
 
 INSERT INTO transactions (customer_id, product_id, amount)
@@ -194,3 +194,41 @@ WHERE customer_id NOT IN
     (SELECT DISTINCT customer_id
     FROM transactions
     WHERE customer_id IS NOT NULL);
+
+-- GROUP BY serve a unire dei valori dove (nel mio caso) transaction_date è uguale
+-- SE si usa GROUP BY, non si può usare WHERE, ma invece si dovrà usare HAVING
+SELECT SUM(amount) AS "Quantità venduta", transaction_date
+FROM transactions
+GROUP BY transactions.transaction_date;
+
+-- UTILE per trovare quante volte una persona ha avuto interazioni
+SELECT COUNT(amount), customer_id
+FROM transactions
+GROUP BY customer_id
+HAVING COUNT(amount) > 1;
+
+-- ROLLUP produce il totale dei valori specificati
+SELECT SUM(amount), customer_id
+FROM transactions
+GROUP BY customer_id WITH ROLLUP;
+
+-- ON DELETE SET NULL (costraint), quando la chiave esterna è eliminata, viene rimpiazzata con NULL
+-- ON DELETE CASCADE (constraint), quando la chiave esterna è eliminata, l'intera riga viene ELIMINATA
+
+-- ON UPDATE SET NULL Se il valore della tabella originale cambia, la row della tabella che lo richiama tramite FK diventerà NULL
+-- ON UPDATE CASCADE Se il valore della tabella originale cambia, cambia anche dove viene richiamata (FK)
+
+-- PROCEDURE SALVATE (sono come funzioni/API che possiamo riusare in futuro)
+-- Utili per quando si ripetono delle query più volte
+-- Delimiter è un modo per cambiare il ; alla fine di uno statement
+
+DELIMITER //
+CREATE PROCEDURE get_customers_with_id(IN id INT)
+BEGIN
+    SELECT *
+    FROM customers
+    WHERE customers.customer_id = id;
+END//
+DELIMITER ;
+
+CALL get_customers_with_id(3);
