@@ -12,7 +12,7 @@ INSERT INTO customers (first_name, last_name)
 VALUES ("Mario", "Fratelli"),
     ("Giovanni", "Garelli"),
     ("Davide", "Vessetti"),
-    ("Fahd", "Procopio"),
+    ("Fernando", "Procopio"),
     ("Federico", "LaPigna"),
     ("Giorgio", "Garelli");
 
