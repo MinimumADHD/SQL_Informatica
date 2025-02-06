@@ -117,7 +117,7 @@ ORDER BY amount ASC; -- ASC non deve per forza essere specificato, dato che è i
 
 SELECT *
 FROM transactions
-ORDER BY amount DESC;
+ORDER BY amount DESC; -- DESCENDING
 
 -- Possiamo anche aggiungere altri valori da valutare, nel caso ci sono valori con più dati uguali
 
